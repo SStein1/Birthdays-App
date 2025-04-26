@@ -12,6 +12,8 @@ struct ContentView: View {
         Friend(name: "Taylor Swift", birthday: .now),
         Friend(name: "Selena Gomez", birthday: Date(timeIntervalSince1970: 0))
     ]
+    @State private var newName = ""
+    @State private var newBirthday = Date.now
     
     var body: some View {
         NavigationStack {
@@ -23,6 +25,25 @@ struct ContentView: View {
         }
             }
             navigationTitle("Birthdays")
+                .safeAreaInset(edge: .bottom) {
+                    VStack {
+                        Text ("New Birthday")
+                            .font(.headline)
+                        DatePicker (selection: $newBirthday, in: Date.distantPast...Date.now,displayedComponents: .date){
+                            TextField ("Name", text: $newName)
+                                .textFieldStyle(.roundedBorder)
+                        }
+                        Button ("Save"){
+                            let newFriend = Friend (name: newName, birthday: newBirthday)
+                            friends.append(newFriend)
+                            newName = ""
+                            newBirthday = Date.now
+                        }
+                        .bold()
+                    }
+                    .padding ()
+                    .background(.bar)
+                }
         }
     }
 }
@@ -30,3 +51,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
