@@ -30,7 +30,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteFriend)
             }
-            .navigationTitle("Birthdays")
+            .navigationTitle("Birthdays 🥳")
             .sheet(item: $selectedFriend) { friend in
                 NavigationStack {
                    EditFriendView (friend: friend)
